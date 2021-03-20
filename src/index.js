@@ -1,25 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'semantic-ui-css/semantic.min.css';
-import './app/layout/styles.css';
-import App from './app/layout/App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import "semantic-ui-css/semantic.min.css";
+import "./app/layout/styles.css";
+import App from "./app/layout/App";
+import reportWebVitals from "./reportWebVitals";
 
-const rootEl = document.getElementById('root');
+const rootEl = document.getElementById("root");
 
 function render() {
-  ReactDOM.render(<App />, rootEl);
+  ReactDOM.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>,
+    rootEl
+  );
 }
 
 // Some foncy Hot Module Replacement here.
 
 if (module.hot) {
-  module.hot.accept("./app/layout/App", function() {
+  module.hot.accept("./app/layout/App", function () {
     setTimeout(render);
-  })
+  });
 }
 
-render()
+render();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
