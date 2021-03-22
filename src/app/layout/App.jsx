@@ -6,6 +6,7 @@ import { Route } from "react-router-dom";
 import HomePage from "../../features/home/HomePage";
 import EventDetailedPage from "../../features/events/eventDetailed/EventDetailedPage";
 import EventForm from "../../features/events/eventForm/EventForm";
+import Sandbox from "../../features/sandbox/Sandbox";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 path={["/createEvent", "/manageEvent"]}
                 component={EventForm}
               />
+              <Route path="/sandbox" component={Sandbox} />
             </Container>
           </>
         )}
