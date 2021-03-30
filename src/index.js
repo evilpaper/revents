@@ -25,7 +25,7 @@ function render() {
   );
 }
 
-// Some foncy Hot Module Replacement here.
+// Some fancy Hot Module Replacement here.
 
 if (module.hot) {
   module.hot.accept("./app/layout/App", function () {
