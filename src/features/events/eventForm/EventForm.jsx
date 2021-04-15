@@ -1,7 +1,7 @@
 import cuid from "cuid";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Header, Segment, FormField } from "semantic-ui-react";
+import { Button, Header, Segment, FormField, Label } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateEvent, createEvent } from "../eventActions";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -24,7 +24,7 @@ export default function EventForm({ match, history }) {
   };
 
   const validationSchema = Yup.object({
-    title: Yup.string().required(),
+    title: Yup.string().required("You must provide a title"),
   });
 
   // function handleFormSubmit() {
@@ -53,6 +53,10 @@ export default function EventForm({ match, history }) {
         <Form className="ui form">
           <FormField>
             <Field name="title" placeholder="Event title" />
+            <ErrorMessage
+              name="title"
+              render={(error) => <Label basic color="red" content={error} />}
+            />
           </FormField>
           <FormField>
             <Field name="category" placeholder="Category" />
