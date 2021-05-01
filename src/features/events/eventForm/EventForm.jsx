@@ -80,7 +80,8 @@ export default function EventForm({ match, history }) {
             />
             <Button
               loading={isSubmitting}
-              disabled={!isValid || !dirty || isSubmitting}
+              // disabled={!isValid || !dirty || isSubmitting}
+              disabled={!dirty || !isValid}
               type="submit"
               floated="right"
               positive
