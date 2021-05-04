@@ -4,8 +4,13 @@ import ModalWrapper from "../../app/common/modal/ModalWrapper";
 import * as Yup from "yup";
 import MyTextInput from "../../app/common/form/MyTextInput";
 import { Button } from "semantic-ui-react";
+import { useDispatch } from "react-redux";
+import { signInUser } from "../auth/authActions";
+import { closeModal } from "../../app/common/modal/modalReducer";
 
 export default function LoginForm() {
+  const dispatch = useDispatch();
+
   return (
     <ModalWrapper size="mini" header="Sign in to Re-vents">
       <Formik
@@ -14,8 +19,10 @@ export default function LoginForm() {
           email: Yup.string().required().email(),
           password: Yup.string().required(),
         })}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={(values, { setSubmitting }) => {
+          dispatch(signInUser(values));
+          setSubmitting(false);
+          dispatch(closeModal());
         }}
       >
         {({ isSubmitting, isValid, dirty }) => (
@@ -28,7 +35,7 @@ export default function LoginForm() {
             />
             <Button
               loading={isSubmitting}
-              disabled={isValid || !dirty || isSubmitting}
+              disabled={!isValid || !dirty || isSubmitting}
               type="submit"
               fluid
               size="large"
