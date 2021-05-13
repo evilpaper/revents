@@ -1,3 +1,10 @@
+import {
+  asyncActionError,
+  asyncActionFinish,
+  asyncActionStart,
+} from "../../app/async/asyncReducer";
+import { delay } from "../../app/common/util/util";
+
 // Action Names
 const INCREMENT_COUNTER = "INCREMENT_COUNTER";
 const DECREMENT_COUNTER = "DECREMENT_COUNTER";
@@ -6,16 +13,28 @@ const REMOVE_TODO = "REMOVE_TODO";
 
 // Action Creators
 export function increment(amount) {
-  return {
-    type: INCREMENT_COUNTER,
-    payload: amount,
+  return async function (dispatch) {
+    dispatch(asyncActionStart());
+    try {
+      await delay(1000);
+      dispatch({ type: INCREMENT_COUNTER, payload: amount });
+      dispatch(asyncActionFinish());
+    } catch (error) {
+      dispatch(asyncActionError);
+    }
   };
 }
 
 export function decrement(amount) {
-  return {
-    type: DECREMENT_COUNTER,
-    payload: amount,
+  return async function (dispatch) {
+    dispatch(asyncActionStart());
+    try {
+      await delay(1000);
+      dispatch({ type: DECREMENT_COUNTER, payload: amount });
+      dispatch(asyncActionFinish());
+    } catch (error) {
+      dispatch(asyncActionError);
+    }
   };
 }
 

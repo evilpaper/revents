@@ -7,17 +7,20 @@ import { increment, decrement } from "./testReducer";
 export default function Sandbox() {
   const dispatch = useDispatch();
   const count = useSelector((state) => state.test.count);
+  const { loading } = useSelector((state) => state.async);
 
   return (
     <>
       <h1>This is the Sandbox Component for playing around with stuff</h1>
       <h3>Count = {count}</h3>
       <Button
+        loading={loading}
         onClick={() => dispatch(decrement(1))}
         content="Decrement"
         color="red"
       />
       <Button
+        loading={loading}
         onClick={() => dispatch(increment(1))}
         content="Increment"
         color="green"
