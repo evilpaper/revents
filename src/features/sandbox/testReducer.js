@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import {
   asyncActionError,
   asyncActionFinish,
@@ -20,7 +21,8 @@ export function increment(amount) {
       dispatch({ type: INCREMENT_COUNTER, payload: amount });
       dispatch(asyncActionFinish());
     } catch (error) {
-      dispatch(asyncActionError);
+      dispatch(asyncActionError(error));
+      toast.error(error);
     }
   };
 }
@@ -33,7 +35,8 @@ export function decrement(amount) {
       dispatch({ type: DECREMENT_COUNTER, payload: amount });
       dispatch(asyncActionFinish());
     } catch (error) {
-      dispatch(asyncActionError);
+      dispatch(asyncActionError(error));
+      toast.error(error);
     }
   };
 }
