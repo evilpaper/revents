@@ -9,6 +9,11 @@ import {
   getEventsFromFirestore,
 } from "../../../app/firestore/firestoreService";
 import { listenToEvents } from "../eventActions";
+import {
+  asyncActionError,
+  asyncActionFinish,
+  asyncActionStart,
+} from "../../../app/async/asyncReducer";
 
 export default function EventDashboard() {
   const dispatch = useDispatch();
@@ -16,19 +21,23 @@ export default function EventDashboard() {
   const { loading } = useSelector((state) => state.async);
 
   useEffect(() => {
+    dispatch(asyncActionStart());
     const unsubscribe = getEventsFromFirestore({
-      next: (snapshot) =>
+      next: (snapshot) => {
         dispatch(
           listenToEvents(
             snapshot.docs.map((docSnapshot) => dataFromSnapshot(docSnapshot))
           )
-        ),
-      error: (error) => console.log(error),
+        );
+        dispatch(asyncActionFinish());
+      },
+      error: (error) => dispatch(asyncActionError(error)),
+      complete: () => console.log("You will never see this message"),
     });
-    // Return is called when cpmponent unmount
+    // Return is called when the component unmount
     // We don't want to unsubscribe immediately
     return unsubscribe;
-  }, []);
+  }, [dispatch]);
 
   return (
     <Grid>
