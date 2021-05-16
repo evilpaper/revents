@@ -5,6 +5,7 @@ const db = firebase.firestore();
 // Shake the data to get the document id and not
 // juat the fields we defined ourselves
 export function dataFromSnapshot(snapshot) {
+
   if (!snapshot.exists) return undefined;
   const data = snapshot.data();
 
