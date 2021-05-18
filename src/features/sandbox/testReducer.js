@@ -41,6 +41,7 @@ export function decrement(amount) {
   };
 }
 
+// Actions
 export function add() {
   return {
     type: ADD_TODO,
@@ -60,6 +61,7 @@ const initialState = {
   todos: [],
 };
 
+// Reducer
 export default function testReducer(state = initialState, { type, payload }) {
   switch (type) {
     case INCREMENT_COUNTER:
