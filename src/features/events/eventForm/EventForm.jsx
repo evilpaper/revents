@@ -1,9 +1,8 @@
-import cuid from "cuid";
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Button, Header, Segment } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateEvent, createEvent, listenToEvents } from "../eventActions";
+import { listenToEvents } from "../eventActions";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import MyTextInput from "../../../app/common/form/MyTextInput";
@@ -48,13 +47,13 @@ export default function EventForm({ match, history }) {
   });
 
   useFirestoreDoc({
+    shouldExecute: !!match.params.id,
     query: () => listenToEventFromFirestore(match.params.id),
     data: (event) => dispatch(listenToEvents([event])),
     deps: [match.params.id, dispatch],
   });
 
-  if (loading || (!selectedEvent && !error))
-    return <LoadingComponent content="Loading event..." />;
+  if (loading) return <LoadingComponent content="Loading event..." />;
 
   if (error) return <Redirect to="/error" />;
 
