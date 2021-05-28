@@ -1,4 +1,4 @@
-import { SIGN_IN_USER, SIGN_OUT_USER } from "./authConstatnts";
+import { SIGN_IN_USER, SIGN_OUT_USER } from "./authConstants";
 
 const initialState = {
   authenticated: false,

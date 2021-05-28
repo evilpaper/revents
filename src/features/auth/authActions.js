@@ -1,4 +1,4 @@
-import { SIGN_IN_USER, SIGN_OUT_USER } from "./authConstatnts";
+import { SIGN_IN_USER, SIGN_OUT_USER } from "./authConstants";
 import firebase from "../../app/config/firebase";
 
 export function signInUser(user) {
@@ -8,20 +8,20 @@ export function signInUser(user) {
   };
 }
 
+export function signOutUser() {
+  return {
+    type: SIGN_OUT_USER,
+  };
+}
+
 export function verifyAuth() {
   return function (dispatch) {
     return firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         dispatch(signInUser(user));
       } else {
-        dispatch(signOutUser);
+        dispatch(signOutUser());
       }
     });
-  };
-}
-
-export function signOutUser() {
-  return {
-    type: SIGN_OUT_USER,
   };
 }
