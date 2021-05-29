@@ -22,3 +22,5 @@ export async function registerInFirebase(creds) {
     throw error;
   }
 }
+
+export async function socialLogin(selectedProvider) {}
